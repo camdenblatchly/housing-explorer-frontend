@@ -40,6 +40,7 @@ const Dashboard = () => {
     <div className={style["dashboard"]}>
       {responseData && (
         <div className={style["chart-container"]}>
+          <h2>Housing Explorer</h2>
           <ParentSize>{({ width, height }) => <ScatterPlot width={width} height={height} data={responseData.data} />}</ParentSize>
         </div>
       )}

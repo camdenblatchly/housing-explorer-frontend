@@ -19,22 +19,29 @@ const ScatterPlot = ({
   data,
   width = 700,
   height = 300,
-  margin = { top: 10, left: 60, right: 40, bottom: 20 },
+  margin = { top: 10, left: 60, right: 40, bottom: 40 },
 }) => {
 
   const x = (d) => +d.zri_st;
   const y = (d) => +d.rent_burden;
+  const r = (d) => +d.pop_total;
 
   const xScale = scaleLinear({
     range: [margin.left, width - margin.right - margin.left],
     domain: extent(data, x),
-  })
+  });
 
   const yScale = scaleLinear({
     range: [height - margin.bottom - margin.top, margin.top],
     domain: extent(data, y),
     nice: true,
-  })
+  });
+
+  const rScale = scaleLinear({
+    range: [3, 50],
+    domain: extent(data, r),
+    nice: true,
+  });
 
   // const radius = (d) => d.population
 
@@ -122,8 +129,9 @@ const ScatterPlot = ({
               key={i}
               cx={xScale(x(point))}
               cy={yScale(y(point))}
-              r={3}
-              fill={tooltipData === point ? "blue" : "red"}        
+              r={rScale(r(point))}
+              fill={tooltipData === point ? "orange" : "#69306D"}     
+              fillOpacity={tooltipData === point ? 1 : 0.7}   
             />
           ))}
         </Group>
@@ -139,7 +147,7 @@ const ScatterPlot = ({
               {tooltipData.NAME}
             </h3>
             <div>
-            <p>TEST</p>
+            <p>{tooltipData.pop_total}</p>
             </div>
           </TooltipWithBounds>
         )

@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
         <p>
-          Housing explorer app
+          developing...
         </p>
         <Dashboard />
     </div>
