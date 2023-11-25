@@ -3,6 +3,10 @@ import axios from 'axios';
 
 import ScatterPlot from './../components/ScatterPlot';
 
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
+
+import style from "./style/Dashboard.module.css"
+
 const Dashboard = () => {
   // State to store the response data
   const [responseData, setResponseData] = useState(null);
@@ -10,8 +14,9 @@ const Dashboard = () => {
   // Function to make the API request
   const fetchData = async () => {
     try {
+      console.log("fetching data?");
       // Replace 'your_api_endpoint' with the actual endpoint URL
-      const response = await axios.get('https://a1xl4b9xbk.execute-api.us-east-1.amazonaws.com/select_columns', {
+      const response = await axios.get('http://127.0.0.1:5000/select_columns', {
         params: {
           dependent_variable: 'rent_burden',
           independent_variable: 'zri_st',
@@ -32,12 +37,10 @@ const Dashboard = () => {
 
   // Render your component with the fetched data
   return (
-    <div>
-      <h1>Your React Component</h1>
+    <div className={style["dashboard"]}>
       {responseData && (
-        <div>
-          <h2>Response Data</h2>
-          <ScatterPlot data = {responseData.data} />
+        <div className={style["chart-container"]}>
+          <ParentSize>{({ width, height }) => <ScatterPlot width={width} height={height} data={responseData.data} />}</ParentSize>
         </div>
       )}
     </div>
